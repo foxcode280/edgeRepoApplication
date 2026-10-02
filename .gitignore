@@ -1,0 +1,13 @@
+# Installers are published as release assets, never committed.
+*.msi
+*.exe
+*.msix
+*.msp
+*.appx
+*.deb
+*.rpm
+*.pkg
+*.dmg
+*.zip
+*.7z
+*.cab
