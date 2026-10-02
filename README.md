@@ -13,7 +13,8 @@ tree (100 MB file limit, permanent history bloat) — `.gitignore` blocks them.
 
 1. Create a release whose tag is `<app>-<version>`, e.g. `7zip-25.01`.
 2. Attach the installer, e.g. `7z2501-x64.msi`.
-3. Optionally attach `metadata.json` (see below) to pre-fill the package form.
+3. Optionally attach `<asset>.metadata.json` per installer (e.g.
+   `7z2501-x64.msi.metadata.json`, see below) to pre-fill the package form.
 4. Publish the release (drafts are ignored by UEM).
 5. In UEM → Repository → this connection → **Sync**.
 6. In UEM → Software Management → **Add package** → pick the file.
@@ -32,9 +33,11 @@ import a file that no longer matches what was catalogued.
 Architecture is detected from the file name (`x64`, `x86`, `arm64`); the admin
 confirms it when adding the package.
 
-## metadata.json (optional)
+## `<asset>.metadata.json` (optional)
 
-Pre-fills the Add package form; the admin reviews everything before saving.
+One file per installer, named after the asset plus `.metadata.json`, so a
+release can carry several installers (e.g. MSI and EXE). Pre-fills the Add
+package form; the admin reviews everything before saving.
 Field names match the UEM package format.
 
 ```json
@@ -65,7 +68,8 @@ Field names match the UEM package format.
 | `installerFramework` | EXE only: `nsis`, `inno`, `installshield`, `generic`, `auto`            |
 | `sha256`             | If present and different from the asset's real hash, import is rejected |
 
-Empty commands mean "use the default silent install/uninstall".
+Empty commands mean "use the default silent install/uninstall". In EXE
+commands, `{path}` is replaced with the downloaded installer path.
 
 ## Access
 
